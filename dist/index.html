@@ -1,0 +1,62 @@
+<!--
+  EYE FREE MODEL 3D BY Oscar creativo by OSCAR CREATIVO is licensed under Creative Commons Attribution.
+  Juvenile Teratophoneus curriei byrankinstudio is licensed under Creative Commons Attribution.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>A simple Three.JS App</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>A simple three.js app</h1>
+    </header>
+
+    <main>
+      <div id="container3D"></div>
+      <div id="axisMenu" style="
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          background: rgba(0,0,0,0.6);
+          padding: 10px;
+          border-radius: 8px;
+          color: white;
+          font-family: sans-serif;">
+          Axe de rotation :
+          <select id="axisSelect">
+              <option value="x">X</option>
+              <option value="y">Y</option>
+              <option value="z">Z</option>
+          </select>
+      </div>
+
+      <div id="hover-tooltip" style="
+          position: absolute;
+          display: none;
+          background-color: rgba(0, 0, 0, 0.7);
+          color: white;
+          padding: 6px 12px;
+          border-radius: 8px;
+          font-size: 14px;
+          font-weight: bold;
+          pointer-events: none;
+          z-index: 1000;
+      "></div>
+
+    </main>
+    
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
