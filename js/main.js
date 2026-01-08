@@ -116,7 +116,7 @@ function init() {
         // Load model
         const loader = new GLTFLoader();
         loader.load(
-            "/eglise/main.gltf",
+            "/main/main.gltf",
             (gltf) => {
                 const object = gltf.scene;
                 const x=7;
