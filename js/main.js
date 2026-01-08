@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+
 // Variables globales
 let scene, camera, renderer, controls, labelRenderer;
 
@@ -63,27 +64,31 @@ function init() {
     });
 
     // Lights
-    const light1 = new THREE.DirectionalLight(0xffffff, 1);
-    light1.position.set(1, 1, 1);
-    scene.add(light1);
-    scene.add(new THREE.AmbientLight(0x404040));
-
-    const light2 = new THREE.DirectionalLight(0xffffff, 1);
-    light2.position.set(1, 1, -1);
-    scene.add(light2);
-    scene.add(new THREE.AmbientLight(0x404040));
+    function setupLights(scene) {
+        const directionalLightPositions = [
+            { x: 1, y: 1, z: 1 }, { x: 1, y: 1, z: -1 }, { x: -2, y: 1, z: 1 }
+        ];
+        directionalLightPositions.forEach(pos => {
+            const light = new THREE.DirectionalLight(0xffffff, 1);
+            light.position.set(pos.x, pos.y, pos.z);
+            scene.add(light);
+        });
+        scene.add(new THREE.AmbientLight(0x404040));
+    }
+    setupLights(scene);
 
     // Axes Helper
     const axesHelper = new THREE.AxesHelper(100);
     scene.add(axesHelper);
 
     // Ajouter des étiquettes aux axes
-    const xLabel = createAxisLabel('X', new THREE.Vector3(100, 0, 0));
-    const yLabel = createAxisLabel('Y', new THREE.Vector3(0, 100, 0));
-    const zLabel = createAxisLabel('Z', new THREE.Vector3(0, 0, 100));
+    const xLabel = createTextLabel('X', new THREE.Vector3(100, 0, 0), 'red');
+    const yLabel = createTextLabel('Y', new THREE.Vector3(0, 100, 0), 'green');
+    const zLabel = createTextLabel('Z', new THREE.Vector3(0, 0, 100), 'blue');
     scene.add(xLabel);
     scene.add(yLabel);
     scene.add(zLabel);
+
 
     // Load model
     const loader = new GLTFLoader();
@@ -112,13 +117,13 @@ function init() {
     });
 }
 
-// Créer une étiquette pour un axe
-function createAxisLabel(text, position) {
+// Créer une étiquette de texte 2D
+function createTextLabel(text, position, color = 'white', fontSize = '20px') {
     const labelDiv = document.createElement('div');
-    labelDiv.className = 'axis-label';
+    labelDiv.className = 'text-label';
     labelDiv.textContent = text;
-    labelDiv.style.color = 'white';
-    labelDiv.style.fontSize = '20px';
+    labelDiv.style.color = color;
+    labelDiv.style.fontSize = fontSize;
     labelDiv.style.fontFamily = 'Arial, sans-serif';
     labelDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
     labelDiv.style.padding = '5px 10px';
